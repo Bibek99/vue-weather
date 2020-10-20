@@ -2,7 +2,7 @@
 
 ### Live Demo
 
-See [Netlify](https://vueweather-app.netlify.app/).
+See [Live Demo of the weather app.](https://vueweather-app.netlify.app/).
 
 ## Project setup
 
