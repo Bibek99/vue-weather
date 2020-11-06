@@ -12,8 +12,10 @@
           class="search-bar"
           placeholder="Search..."
           v-model="query"
-          @keypress="fetchWeather"
         />
+        <button id="button" type="submit" v-on:click="fetchWeather">
+          Search
+        </button>
       </div>
       <div class="weather-wrap" v-if="typeof weather.main !== 'undefined'">
         <div class="location-box">
@@ -43,16 +45,14 @@ export default {
     };
   },
   methods: {
-    fetchWeather(e) {
-      if (e.key == "Enter") {
-        fetch(
-          `${this.url_base}weather?q=${this.query}&units=metric&APPID=${this.api_key}`
-        )
-          .then(res => {
-            return res.json();
-          })
-          .then(this.setResults);
-      }
+    fetchWeather() {
+      fetch(
+        `${this.url_base}weather?q=${this.query}&units=metric&APPID=${this.api_key}`
+      )
+        .then(res => {
+          return res.json();
+        })
+        .then(this.setResults);
     },
     setResults(results) {
       this.weather = results;
@@ -88,7 +88,7 @@ export default {
       let month = months[d.getMonth()];
       let year = d.getFullYear();
 
-      return `${day} ${date} ${month} ${year}`;
+      return `${day}, ${date} ${month}, ${year}`;
     }
   }
 };
@@ -109,7 +109,6 @@ body {
   background-image: url("./assets/cold-bg.jpg");
   background-size: cover;
   background-position: bottom;
-  transition: 0.4s;
 }
 
 #app.warm {
@@ -117,6 +116,10 @@ body {
 }
 
 main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100vw;
   min-height: 100vh;
   padding: 25px;
   background-image: linear-gradient(
@@ -128,8 +131,9 @@ main {
 
 .search-box {
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  width: 100%;
+  width: 300px;
   margin-bottom: 30px;
 }
 
@@ -143,14 +147,25 @@ main {
   outline: none;
 
   background-color: rgba(255, 255, 255, 0.5);
-  border-radius: 0px 16px 0px 16px;
+  border-radius: 16px;
   transition: 0.4s;
 }
 
 .search-box .search-bar:focus {
   box-shadow: 0px 0px 16px rgba(0, 0, 0, 0.25);
   background-color: rgba(255, 255, 255, 0.75);
-  border-radius: 16px 0px 16px 0px;
+  border-radius: 16px;
+}
+
+#button {
+  margin-top: 2em;
+  padding: 1em 0;
+  border: 1px solid darkorange;
+  border-radius: 12px;
+  background: darkorange;
+
+  font-size: 1em;
+  color: white;
 }
 
 .location-box .location {
